@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class Clock extends Applet implements Runnable {
   Thread thread;
   String time;
+  boolean stopFlag;
   
   /**
    * Initialization method that will be called after the applet is loaded into the browser.
@@ -30,19 +31,29 @@ public class Clock extends Applet implements Runnable {
   @Override
   public void start() {
     thread = new Thread(this);
+    stopFlag = false;
     thread.start();
   }
 
   @Override
   public void run() {
     while (true) {
-      time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
-      repaint();
       try {
-        thread.sleep(1000);      
+        time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
+        repaint();
+        thread.sleep(1000);
+        if (stopFlag) {
+          break;
+        }
       } catch (Exception e) {
       }
     }
+  }
+
+  @Override
+  public void stop() {
+    stopFlag = true;
+    thread = null;
   }
     
   @Override
