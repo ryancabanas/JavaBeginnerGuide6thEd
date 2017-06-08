@@ -9,6 +9,7 @@ package chapter15.problem07;
 import java.awt.*; 
 import java.awt.event.*; 
 import java.applet.*; 
+import java.util.ArrayList;
 /* 
   <applet code="MouseEvents" width=300 height=100> 
   </applet> 
@@ -18,8 +19,8 @@ public class DrawLine extends Applet
   implements MouseListener, MouseMotionListener {
 
   String msg = "";
-  int mouseX1 = 0, mouseY1 = 0;
-  int mouseX2 = 0, mouseY2 = 0;
+  XYLineCoordinatesArray array;
+  ArrayList<XYLineCoordinatesArray> arrayList = new ArrayList();
 
   @Override
   public void init() {
@@ -48,8 +49,9 @@ public class DrawLine extends Applet
   // Handle button pressed.
   @Override
   public void mousePressed(MouseEvent me) {
-    mouseX1 = me.getX();
-    mouseY1 = me.getY();
+    array = new XYLineCoordinatesArray();
+    array.addStartPoint(me.getX(), me.getY());
+    arrayList.add(array);
   }
 
   // Handle button released.
@@ -61,8 +63,8 @@ public class DrawLine extends Applet
   // Handle mouse dragged.
   @Override
   public void mouseDragged(MouseEvent me) {
-    mouseX2 = me.getX();
-    mouseY2 = me.getY();
+    array.addEndPoint(me.getX(), me.getY());
+    arrayList.set(arrayList.size()-1, array);
     repaint();
   }
 
@@ -75,6 +77,25 @@ public class DrawLine extends Applet
   @Override
   public void paint(Graphics g) {
     g.setColor(Color.RED);
-    g.drawLine(mouseX1, mouseY1, mouseX2, mouseY2);
+    arrayList.forEach((x) -> g.drawLine(x.array[0], x.array[1], x.array[2], x.array[3]));
+  }
+  
+  class XYLineCoordinatesArray{
+    Integer[] array;
+
+    XYLineCoordinatesArray() {
+      array = new Integer[4];
+    }
+
+    void addStartPoint(int x, int y) {
+      array[0] = x;
+      array[1] = y;
+    }
+
+    void addEndPoint(int x, int y) {
+      array[2] = x;
+      array[3] = y;
+    }
   }
 }
+
