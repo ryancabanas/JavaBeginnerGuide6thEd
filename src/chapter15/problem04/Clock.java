@@ -24,7 +24,7 @@ public class Clock extends Applet implements Runnable {
   @Override
   public void init() {
     thread = null;
-    time = null;
+    time = "Can't be null.";
   }
   
   @Override
@@ -35,7 +35,7 @@ public class Clock extends Applet implements Runnable {
 
   @Override
   public void run() {
-    for (int i = 0; i < 10; i++) {
+    while (true) {
       time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("hh:mm:ss a"));
       repaint();
       try {
@@ -43,9 +43,8 @@ public class Clock extends Applet implements Runnable {
       } catch (Exception e) {
       }
     }
-    thread = null;
   }
-  
+    
   @Override
   public void paint(Graphics g) {
     g.drawString(time, 10, 20);
