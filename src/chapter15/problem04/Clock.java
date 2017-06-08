@@ -50,4 +50,3 @@ public class Clock extends Applet implements Runnable {
     g.drawString(time, 10, 20);
   }
 }
-
