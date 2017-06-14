@@ -1,0 +1,132 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package chapter16.problem19;
+
+import java.awt.FlowLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+
+/*
+    Try This 4-1
+
+    Convert the help system from Try This 3-3 into
+    a Help class.
+*/
+
+class Help {
+  JFrame jframeFrame;
+  JList<String> jlistTopics;
+  JLabel jlabelSelectTopics, jlabel;
+  String[] arrayTopics = {"if", "switch", "for", "while", "do-while", "break", "continue"};
+  
+  Help()  {
+    jframeFrame = new JFrame("Help Demo");
+    jframeFrame.setVisible(true);
+    jframeFrame.setSize(500, 200);
+    jframeFrame.setLayout(new FlowLayout(FlowLayout.LEFT));
+    jframeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+    jlabelSelectTopics = new JLabel("Topics:");
+    
+    jlistTopics = new JList<>(arrayTopics);
+    jlistTopics.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+    jlistTopics.addListSelectionListener((e) -> {
+      
+    });
+  }
+  
+  
+  void helpOn(int what) {
+    switch(what) {
+      case '1':
+        System.out.println("The if:\n");
+        System.out.println("if(condition) statement;");
+        System.out.println("else statement;");
+        break;
+      case '2':
+        System.out.println("The switch:\n");
+        System.out.println("switch(expression) {");
+        System.out.println("  case constant:");
+        System.out.println("    statement sequence");
+        System.out.println("    break;");
+        System.out.println("  // ...");
+        System.out.println("}");
+        break;
+      case '3':
+        System.out.println("The for:\n");
+        System.out.print("for(init; condition; iteration)");
+        System.out.println(" statement;");
+        break;
+      case '4':
+        System.out.println("The while:\n");
+        System.out.println("while(condition) statement;");
+        break;
+      case '5':
+        System.out.println("The do-while:\n");
+        System.out.println("do {");
+        System.out.println("  statement;");
+        System.out.println("} while (condition);");
+        break;
+      case '6':
+        System.out.println("The break:\n");
+        System.out.println("break; or break label;");
+        break;
+      case '7':
+        System.out.println("The continue:\n");
+        System.out.println("continue; or continue label;");
+        break;
+    }
+    System.out.println();
+  }
+
+  void showMenu() {
+    System.out.println("Help on:");
+    System.out.println("  1. if");
+    System.out.println("  2. switch");
+    System.out.println("  3. for");
+    System.out.println("  4. while");
+    System.out.println("  5. do-while");
+    System.out.println("  6. break");
+    System.out.println("  7. continue\n");
+    System.out.print("Choose one (q to quit): ");
+  }
+
+  boolean isValid(int ch) {
+    if(ch < '1' | ch > '7' & ch != 'q') return false;
+    else return true;
+  }
+
+}
+
+class HelpClassDemo {
+  public static void main(String args[])
+    throws java.io.IOException {
+    char choice, ignore;
+    Help hlpobj = new Help();
+
+    for(;;) {
+      do {
+        hlpobj.showMenu();
+
+        choice = (char) System.in.read(); 
+
+        do { 
+           ignore = (char) System.in.read(); 
+         } while(ignore != '\n'); 
+ 
+      } while( !hlpobj.isValid(choice) );
+
+      if(choice == 'q') break;
+
+      System.out.println("\n");
+
+
+      hlpobj.helpOn(choice);
+    }
+  }
+}
