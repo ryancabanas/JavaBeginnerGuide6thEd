@@ -54,8 +54,7 @@ class ListDemo {
  
     // Add list selection handler and its logic.
     jlst.addListSelectionListener((e) -> {
-      // Get the index of the changed item. 
-//      int idx = jlst.getSelectedIndex(); 
+      // Put the selected items in a List.
       List<String> selectionList = jlst.getSelectedValuesList();
       String[] selectionArray = selectionList.toArray(new String[0]);
 
