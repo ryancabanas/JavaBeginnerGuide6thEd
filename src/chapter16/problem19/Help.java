@@ -27,41 +27,41 @@ class Help {
     
     hashTopicText = new HashMap<>();
     
-    hashTopicText.put("if", "<html>The if:"
+    hashTopicText.put("if", "The if:"
             + "<br>if(condition) statement;"
-            + "<br>else statement;</html>");
+            + "<br>else statement;");
     
-    hashTopicText.put("switch", "<html>The switch:"
+    hashTopicText.put("switch", "The switch:"
             + "<br>switch(expression) {"
             + "<br>  case constant:"
             + "<br>    statement sequence"
             + "<br>    break;"
             + "<br>  // ..."
-            + "<br>}</html>");
+            + "<br>}");
     
-    hashTopicText.put("for", "<html>The for:"
+    hashTopicText.put("for", "The for:"
             + "<br>for(init; condition; iteration)"
-            + "<br> statement;</html>");
+            + "<br> statement;");
 
-    hashTopicText.put("while", "<html>The while:"
-            + "<br>hile(condition) statement;</html>");
+    hashTopicText.put("while", "The while:"
+            + "<br>while(condition) statement;");
 
-    hashTopicText.put("do-while", "<html>The do-while:"
+    hashTopicText.put("do-while", "The do-while:"
             + "<br>do {"
             + "<br>  statement;"
-            + "<br>} while (condition);</html>");
+            + "<br>} while (condition);");
     
-    hashTopicText.put("break", "<html>The break:"
-            + "<br>break; or break label;</html>");
+    hashTopicText.put("break", "The break:"
+            + "<br>break; or break label;");
     
-    hashTopicText.put("continue", "<html>The continue:"
-            + "<br>continue; or continue label;</html>");
+    hashTopicText.put("continue", "The continue:"
+            + "<br>continue; or continue label;");
   }
   
   Help()  {
     jframeFrame = new JFrame("Help Demo");
     jframeFrame.setVisible(true);
-    jframeFrame.setSize(500, 200);
+    jframeFrame.setSize(400, 600);
     jframeFrame.setLayout(new FlowLayout(FlowLayout.LEFT));
     jframeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -79,11 +79,14 @@ class Help {
         for (int i = 0; i < selectionArray.length; i++) {
           String topicKey = selectionArray[i];
           String topicValue = hashTopicText.get(topicKey);
-          if (i > 0) {
+          if (i == 0) {
+            topicText.append("<html>");
+          } else {
             topicText.append("<br><br>");
           }
           topicText.append(topicValue);
         }
+        topicText.append("</html>");
         jlabelTopicText.setText(topicText.toString());
       } else {
         jlabelTopicText.setText("Choose one, or more, help topics.");         
