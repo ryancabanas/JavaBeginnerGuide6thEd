@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 class Help {
   JFrame jframeFrame;
   JList<String> jlistTopics;
-  JLabel jlabelSelectTopics, jlabelTopicText;
+  JLabel jlabelTopicText;
   static final String[] arrayTopics;
   static final HashMap<String, String> hashTopicText;
   
@@ -64,28 +64,36 @@ class Help {
     jframeFrame.setSize(500, 200);
     jframeFrame.setLayout(new FlowLayout(FlowLayout.LEFT));
     jframeFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    
-    jlabelSelectTopics = new JLabel("Topics:");
+
+    jlabelTopicText = new JLabel("Choose one, or more, help topics.");
     
     jlistTopics = new JList<>(arrayTopics);
     jlistTopics.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
     jlistTopics.addListSelectionListener((e) -> {
+      StringBuilder topicText = new StringBuilder();
+
       List<String> selectionList = jlistTopics.getSelectedValuesList();
       String[] selectionArray = selectionList.toArray(new String[0]);
 
-      if(selectionArray.length > 0) 
-        jlabelTopicText.setText(String.join("<br><br>", selectionArray)); 
-      else // Othewise, reprompt. 
-        jlabelTopicText.setText(""); 
+      if(selectionArray.length > 0) {
+        for (int i = 0; i < selectionArray.length; i++) {
+          String topicKey = selectionArray[i];
+          String topicValue = hashTopicText.get(topicKey);
+          if (i > 0) {
+            topicText.append("<br><br>");
+          }
+          topicText.append(topicValue);
+        }
+        jlabelTopicText.setText(topicText.toString());
+      } else {
+        jlabelTopicText.setText("Choose one, or more, help topics.");         
+      }
     });
     
-    jframeFrame.add(jlabelSelectTopics);
     jframeFrame.add(jlistTopics);
     jframeFrame.add(jlabelTopicText);
   }
-}
-
-class HelpClassDemo {
+  
   public static void main(String args[]) {
     SwingUtilities.invokeLater(() -> new Help());
   }
