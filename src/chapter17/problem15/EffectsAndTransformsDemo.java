@@ -85,16 +85,14 @@ public class EffectsAndTransformsDemo extends Application {
     imageView = new ImageView(image);
     imageView.setFitWidth(200);
     imageView.setPreserveRatio(true);
+    imageView.getTransforms().add(translate);
     
     // Add rotation to the transform list for the Rotate button. 
     btnRotate.getTransforms().add(rotate);
  
     // Add scaling to the transform list for the Scale button. 
     btnScale.getTransforms().add(scale);
-    
-    // Add translation
-    btnTranslate.getTransforms().add(translate);
- 
+     
     // Set the reflection effect on the reflection label. 
     reflection.setTopOpacity(0.7); 
     reflection.setBottomOpacity(0.3); 
@@ -180,14 +178,13 @@ public class EffectsAndTransformsDemo extends Application {
         translatePosition = 0;
       }
 
-      System.out.println(translate.getX() + "," + translate.getY());
     });
     
     // Add the label and buttons to the scene graph.  
     rootNode.getChildren().addAll(
             imageView, btnRotate, btnScale, btnBlur, btnGlow, btnTranslate, reflect
-    );  
- 
+    );
+    
     // Show the stage and its scene.  
     myStage.show();  
   }  
